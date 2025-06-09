@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Card Collection Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header__title">Pokemon Card Collection Tracker</h1>
+            <div class="header__stats">
+                <div class="stat-card">
+                    <span class="stat-card__label">Total Cards</span>
+                    <span class="stat-card__value" id="totalCards">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-card__label">Total Value</span>
+                    <span class="stat-card__value" id="totalValue">$0.00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-area__content">
+                    <div class="upload-icon">📁</div>
+                    <h3>Upload Pokemon Cards</h3>
+                    <p>Drag and drop card images here or click to browse</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" class="upload-input">
+                    <button type="button" class="btn btn--primary" id="browseBtn">Browse Files</button>
+                </div>
+            </div>
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">Processing cards...</span>
+            </div>
+        </section>
+
+        <!-- Search and Filter Controls -->
+        <section class="controls-section">
+            <div class="controls-grid">
+                <div class="form-group">
+                    <label for="searchInput" class="form-label">Search Cards</label>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by name, set, or rarity...">
+                </div>
+                <div class="form-group">
+                    <label for="setFilter" class="form-label">Filter by Set</label>
+                    <select id="setFilter" class="form-control">
+                        <option value="">All Sets</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rarityFilter" class="form-label">Filter by Rarity</label>
+                    <select id="rarityFilter" class="form-control">
+                        <option value="">All Rarities</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn--secondary" id="exportBtn">Export CSV</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collection Table -->
+        <section class="collection-section">
+            <div class="table-container">
+                <table class="collection-table" id="collectionTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="image">Image</th>
+                            <th class="sortable" data-sort="name">Name</th>
+                            <th class="sortable" data-sort="set">Set</th>
+                            <th class="sortable" data-sort="number">Number</th>
+                            <th class="sortable" data-sort="rarity">Rarity</th>
+                            <th class="sortable" data-sort="condition">Condition</th>
+                            <th class="sortable" data-sort="price">Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="collectionBody">
+                        <tr class="empty-state">
+                            <td colspan="8">
+                                <div class="empty-state__content">
+                                    <div class="empty-state__icon">🎴</div>
+                                    <h3>No cards in your collection yet</h3>
+                                    <p>Upload some Pokemon card images to get started!</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Card Selection Modal -->
+    <div class="modal" id="cardSelectionModal">
+        <div class="modal__overlay" id="modalOverlay"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3>Select Correct Card</h3>
+                <button type="button" class="modal__close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal__body">
+                <p id="modalMessage">Multiple cards found. Please select the correct one:</p>
+                <div class="card-options" id="cardOptions"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Viewer Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal__overlay" id="imageModalOverlay"></div>
+        <div class="modal__content modal__content--image">
+            <div class="modal__header">
+                <h3 id="imageModalTitle">Card Image</h3>
+                <button type="button" class="modal__close" id="imageModalClose">&times;</button>
+            </div>
+            <div class="modal__body">
+                <img id="imageModalImg" src="" alt="Card Image" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
